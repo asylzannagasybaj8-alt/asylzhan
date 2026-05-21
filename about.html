@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Біз туралы - CodeMaster</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header (courses.html-ден көшірілген) */
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+
+        .navbar { padding: 1rem 0; }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #6366f1;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: #6366f1;
+        }
+
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: #6366f1;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: #333;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* About Hero */
+        .about-hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 160px 0 100px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="1" fill="rgba(255,255,255,0.05)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .about-hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .about-hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 800;
+        }
+
+        .about-hero p {
+            font-size: 1.3rem;
+            max-width: 600px;
+            margin: 0 auto;
+            opacity: 0.95;
+        }
+
+        /* Section */
+        .section {
+            padding: 120px 0;
+        }
+
+        .section:nth-child(even) {
+            background: #f8fafc;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.8rem;
+            margin-bottom: 4rem;
+            color: #1e293b;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 5px;
+            background: linear-gradient(45deg, #6366f1, #764ba2);
+            border-radius: 3px;
+        }
+
+        /* Mission Section */
+        .mission-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+        }
+
+        .mission-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            background: linear-gradient(135deg, #6366f1, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .mission-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+            transition: all 0.4s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 80px rgba(0,0,0,0.15);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            color: #6366f1;
+            display: block;
+        }
+
+        .stat-label {
+            color: #64748b;
+            font-size: 1.1rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Timeline */
+        .timeline {
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, #6366f1, #764ba2);
+            border-radius: 2px;
+        }
+
+        .timeline-item {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            margin-bottom: 6rem;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(even) {
+            transform: translateX(50px);
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content {
+            order: 2;
+        }
+
+        .timeline-date {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #6366f1, #764ba2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 1.2rem;
+            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.3);
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+        }
+
+        .timeline-content {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+            position: relative;
+        }
+
+        .timeline-content h3 {
+            font-size: 1.6rem;
+            color: #1e293b;
+            margin-bottom: 1rem;
+        }
+
+        /* Team */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .team-card {
+            text-align: center;
+            padding: 2.5rem 2rem;
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .team-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #6366f1, #764ba2);
+        }
+
+        .team-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 35px 80px rgba(0,0,0,0.15);
+        }
+
+        .team-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: #6366f1;
+            border: 4px solid white;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+        }
+
+        .team-name {
+            font-size: 1.4rem;
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .team-role {
+            color: #10b981;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .team-skills {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .skill-tag {
+            padding: 0.3rem 1rem;
+            background: #f1f5f9;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: #64748b;
+        }
+
+        /* CTA */
+        .cta-section {
+            background: linear-gradient(135deg, #6366f1, #764ba2);
+            color: white;
+            text-align: center;
+            padding: 100px 0;
+        }
+
+        .cta-content h2 {
+            font-size: 2.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            margin-top: 2.5rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 16px 32px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-block;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: white;
+            color: #6366f1;
+            box-shadow: 0 15px 40px rgba(255,255,255,0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 50px rgba(255,255,255,0.4);
+        }
+
+        .btn-secondary {
+            border: 2px solid white;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: #6366f1;
+        }
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            color: white;
+            padding: 4rem 0 1.5rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #94a3b8;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hamburger { display: flex; }
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 70px;
+                flex-direction: column;
+                background: white;
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                padding: 2rem 0;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            }
+            .nav-menu.active { left: 0; }
+
+            .about-hero h1 { font-size: 2.5rem; }
+            .mission-grid { grid-template-columns: 1fr; gap: 3rem; }
+            .timeline::before { left: 30px; }
+            .timeline-item { grid-template-columns: 1fr; gap: 2rem; }
+            .timeline-date {
+                position: static;
+                margin: 0 auto 2rem;
+                transform: none;
+            }
+            .cta-buttons { flex-direction: column; align-items: center; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="logo">
+                    <i class="fas fa-code"></i>
+                    <span>CodeMaster</span>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="nav-link">Басты</a></li>
+                    <li><a href="courses.html" class="nav-link">Курстар</a></li>
+                    <li><a href="about.html" class="nav-link active">Біз туралы</a></li>
+                    <li><a href="contact.html" class="nav-link">Байланыс</a></li>
+                </ul>
+                <div class="hamburger">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero -->
+    <section class="about-hero">
+        <div class="container">
+            <div class="about-hero-content">
+                <h1>Біздің<br><strong>CodeMaster</strong> әлеміне<br>қош келдіңіз</h1>
+                <p>2023 жылы құрылған Қазақстандағы №1 IT оқу орталығы. 5000+ оқушыны оқытып, 95% жұмысқа орналастырдық.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Біздің миссия</h2>
+            <div class="mission-grid">
+                <div class="mission-content">
+                    <h2>Қазақстан жастарына IT саласындағы сапалы білім беру</h2>
+                    <p>CodeMaster - бұл тек курстар емес, бұл сіздің IT саласындағы мансапқа жол ашуыңыздың кілті. Біздің оқыту әдіснамамыз 90% тәжірибеге және 10% теорияға негізделген.</p>
+                    <p>Әр оқушымызға жеке ментор беріледі, Telegram-да 24/7 қолдау көрсетеміз және нақты жұмыс жобаларын жасаймыз.</p>
+                    
+                    <div class="mission-stats">
+                        <div class="stat-card">
+                            <span class="stat-number">5000+</span>
+                            <span class="stat-label">Оқушылар</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-number">95%</span>
+                            <span class="stat-label">Жұмысқа орналасу</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-number">50+</span>
+                            <span class="stat-label">Менторлар</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-number">100%</span>
+                            <span class="stat-label">Қанағаттану</span>
+                        </div>
+                    </div>
+                </div>
+                <div style="height: 500px; background: linear-gradient(135deg, #f8fafc, #e2e8f0); border-radius: 24px;"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Біздің жолымыз</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">2023</div>
+                    <div class="timeline-content">
+                        <h3>CodeMaster құрылды</h3>
+                        <p>Алғашқы Python курсы Ақтөбеде ашылды. 50 оқушымен бастадық.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">2024</div>
+                    <div class="timeline-content">
+                        <h3>Онлайн платформа</h3>
+                        <p>1000+ оқушы, 5 қалада филиалдар, JavaScript және Frontend курстары.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">2025</div>
+                    <div class="timeline-content">
+                        <h3>5000+ оқушы</h3>
+                        <p>Барлық Қазақстан бойынша, Backend және Mobile курстары қосылды.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">2026</div>
+                    <div class="timeline-content">
+                        <h3>IT University</h3>
+                        <p>Толыққанды IT Университет, халықаралық сертификаттар.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Біздің команда</h2>
+            <div class="team-grid">
+                <div class="team-card">
+                    <div class="team-avatar">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <h3 class="team-name">Ерлан Сартаев</h3>
+                    <div class="team-role">Python Lead Mentor</div>
+                    <p>5 жыл тәжірибе, Yandex, Kaspi.kz</p>
+                    <div class="team-skills">
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">Django</span>
+                        <span class="skill-tag">AI/ML</span>
+                    </div>
+                </div>
+                <div class="team-card">
+                    <div class="team-avatar">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3 class="team-name">Айгүл Каримова</h3>
+                    <div class="team-role">Frontend Lead</div>
+                    <p>Google сертификаты, 4 жыл тәжірибе</p>
+                    <div class="team-skills">
+                        <span class="skill-tag">React</span>
+                        <span class="skill-tag">Next.js</span>
+                        <span class="skill-tag">UI/UX</span>
+                    </div>
+                </div>
+                <div class="team-card">
+                    <div class="team-avatar">
+                        <i class="fas fa-server"></i>
+                    </div>
+                    <h3 class="team-name">Нұрлан Баймуханов</h3>
+                    <div class="team-role">Backend Architect</div>
+                    <p>7 жыл тәжірибе, AWS Expert</p>
+                    <div class="team-skills">
+                        <span class="skill-tag">Node.js</span>
+                        <span class="skill-tag">Docker</span>
+                        <span class="skill-tag">Microservices</span>
+                    </div>
+                </div>
+                <div class="team-card">
+                    <div class="team-avatar">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3 class="team-name">Динара Елеуова</h3>
+                    <div class="team-role">Mobile Developer</div>
+                    <p>App Store Top Developer</p>
+                    <div class="team-skills">
+                        <span class="skill-tag">React Native</span>
+                        <span class="skill-tag">Flutter</span>
+                        <span class="skill-tag">Swift</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>IT саласындағы мансапқа<br>бүгін жол ашыңыз!</h2>
+                <p>CodeMaster - сіздің сәттілік жолыңыздың бастапқы нүктесі</p>
+                <div class="cta-buttons">
+                    <a href="courses.html" class="btn btn-primary">Курстарды қарау</a>
+                    <a href="contact.html" class="btn btn-secondary">Бізбен байланыс</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <div class="logo">
+                        <i class="fas fa-code"></i>
+                        <span>CodeMaster</span>
+                    </div>
+                    <p>Бағдарламалауды нөлден оқытамыз. IT саласында мансапқа жол ашуға көмектесеміз.</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 CodeMaster. Барлық құқықтар қорғалған.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href'))?.scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Animation observer
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        // Observe all sections
+        document.querySelectorAll('.section, .team-card, .stat-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(40px)';
+            el.style.transition = 'all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
